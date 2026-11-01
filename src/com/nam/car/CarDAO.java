@@ -1,25 +1,22 @@
 package com.nam.car;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CarDAO {
-    private int ind = 0;
-    private Car[] cars = new Car[100];
+    private ArrayList<Car> cars = new ArrayList<>();
 
     public void saveCar(Car car){
-        if(ind > 100) System.out.println("the system is overloaded! ");
-        cars[ind] = car;
-        this.ind += 1;
+        cars.add(car);
     }
-    public Car[] getCars(){
+    public ArrayList<Car> getCars(){
         return cars;
     }
 
     @Override
     public String toString() {
         return "CarDAO{" +
-                "ind=" + ind +
-                ", cars=" + Arrays.toString(getCars()) +
+                "cars=" + getCars() +
                 '}';
     }
 }

@@ -6,9 +6,9 @@ public class User {
     private String name;
     private UUID id;
 
-    public User(String name) {
+    public User(String name, UUID id) {
         this.name = name;
-        this.id = UUID.randomUUID();
+        this.id = id;
     }
 
     public UUID getId() {

@@ -10,8 +10,7 @@ public class Car {
     private Brand brand;
     private boolean isElectricty;
 
-    public Car(UUID id, String regNumber, BigDecimal rentalPricePerDay,
-               Brand brand, boolean isElectricty) {
+    public Car() {
         this.id = id;
         this.regNumber = regNumber;
         this.rentalPricePerDay = rentalPricePerDay;

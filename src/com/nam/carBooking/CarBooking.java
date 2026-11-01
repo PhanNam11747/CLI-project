@@ -19,15 +19,26 @@ public class CarBooking {
     private BookingStatus status;
     private LocalDateTime bookAt;
     CarBooking(User user, Car car,
-                        LocalDate startD, LocalDate endD) {
+                        LocalDate startD, LocalDate endD, UUID id) {
+
         this.user = user;
-        this.id = UUID.randomUUID();
+        this.id = id;
         this.car = car;
         this.startD = startD;
         this.endD = endD;
+        checkDate();
         this.price = calculatePrice(startD, endD);
         this.status = BookingStatus.ACTIVE;
         this.bookAt = LocalDateTime.now();
+    }
+    public void checkDate(){
+        if(startD.isAfter(endD)) throw new IllegalArgumentException() ;
+    }
+    public void checkUserId(){
+
+    }
+    public void checkCarId(){
+
     }
     public BigDecimal calculatePrice(LocalDate startD, LocalDate endD){
         long days = ChronoUnit.DAYS.between(startD, endD);

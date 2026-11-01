@@ -1,25 +1,31 @@
 package com.nam.carBooking;
 
+
 import com.nam.car.Car;
 import com.nam.user.User;
+import com.nam.user.UserDAO;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 public class CarBookingService {
-    ArrayList<CarBooking> list = new ArrayList<>();
-    public CarBooking booking(User user, Car car, LocalDate startD, LocalDate endD){
-        if(isCarBooked(car)){
-            System.out.println("car already booked");
+    private CarBookingDAO booking = new CarBookingDAO();
+
+    public void addBooking(CarBooking book){
+        if(book.getStartD().isAfter(book.getEndD()))
+            throw new IllegalArgumentException("day start cannot be after day end");
+
+        for(CarBooking c : booking.getBooking()){
+            if(c.getCar().getId().equals(book.getId())
+                    && c.getUser().getId().equals(book.getId())
+                    && c.getStatus() == BookingStatus.ACTIVE ){
+                throw new IllegalStateException("Car is already booked.");
+            }
         }
-        CarBooking item = new CarBooking(user, car, startD,endD);
-        list.add(item);
-        return item;
+        booking.saveBooking(book);
     }
-    public boolean isCarBooked(Car car) {
-        return list.stream()
-                .anyMatch(b -> b.getCar().equals(car) &&
-                        b.getStatus() == BookingStatus.ACTIVE);
+    public ArrayList<CarBooking> getBookingList(){
+        return booking.getBooking();
     }
 }
